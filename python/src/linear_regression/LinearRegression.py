@@ -8,9 +8,9 @@ def load_boston_data():
         boston = pd.read_csv(url)
         X = boston.drop('medv', axis=1).values
         y = boston['medv'].values
-        for i in range(10):
-            print(f"X[{i}]: {X[i]}")
-            print(f"y[{i}]: {y[i]}")
+        # for i in range(10):
+            # print(f"X[{i}]: {X[i]}")
+            # print(f"y[{i}]: {y[i]}")
 
         print("load data success")
         return X, y
@@ -74,7 +74,7 @@ class LinearRegression:
 
             self.weights = self.weights - dw * self.leaning_rate
             self.bias = self.bias - db * self.leaning_rate
-            if i % 100 == 0:
+            if i % 1000 == 0:
                 print(f"Iteration: {i}")
                 print(f"MSE: {mean_squared_loss}")
     def predict(self, X):
@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
     X_train, X_test, y_train, y_test = split_data(X, y, test_size=0.2, random_state=42)
     X_train, X_test = standard_scaler(X_train, X_test)
-    model = LinearRegression(leaning_rate=0.00001, n_iters=1000)
+    model = LinearRegression(leaning_rate=0.00000001, n_iters=100000)
     model.fit(X_train, y_train)
 
     y_pred = model.predict(X_test)
