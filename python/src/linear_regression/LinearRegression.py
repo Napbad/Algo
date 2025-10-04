@@ -68,9 +68,9 @@ class LinearRegression:
             mean_squared_loss = custom_mean_squared_error(y_predict, y)
             self.cost_history.append(mean_squared_loss)
 
-            tmp =  np.dot(X.T, (y - y_predict))
+            tmp =  np.dot(X.T, (y_predict - y))
             dw = 2 / n_samples * tmp
-            db = 2 / n_samples * np.sum(y - y_predict)
+            db = 2 / n_samples * np.sum(y_predict - y)
 
             self.weights = self.weights - dw * self.leaning_rate
             self.bias = self.bias - db * self.leaning_rate
@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
     X_train, X_test, y_train, y_test = split_data(X, y, test_size=0.2, random_state=42)
     X_train, X_test = standard_scaler(X_train, X_test)
-    model = LinearRegression(leaning_rate=0.00000001, n_iters=100000)
+    model = LinearRegression(leaning_rate=0.001, n_iters=10000)
     model.fit(X_train, y_train)
 
     y_pred = model.predict(X_test)
